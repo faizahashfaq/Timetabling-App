@@ -1,0 +1,71 @@
+Classes:
+//To store information about courses
+class Course {
+	courseID
+	courseName
+	crtHours;
+	teacherID
+	Course(courseID, courseName, crtHours, teacherID) {
+		this->courseID = courseID
+		this->courseName = courseName
+		this->crtHours = crtHours
+		this->teacherID = teacherID
+}
+
+//To store information about teachers
+class Teacher {
+	teacherID
+	teacherName
+	dailyWorkingHours
+	courseID
+	Teacher(teacherID, teacherName, courseID) {
+		this->courseID = courseID
+		this->teacherName = teacherName
+		this->teacherID = teacherID
+}
+
+//This class is to keep a count of classes that have been assigned so the total number of classes in a week of a course does not exceed the total credit hours
+class Counter {
+	section
+	noOfSections
+	Counter(noOfSections) {
+		this->noOfSections = noOfSections
+		section[course, noOfSections] 		//initialize all elements to zero
+	}
+	void add (k, course) {
+		section[course, k] = section[course, k]+1
+	}
+	int get(k, course) {
+		return section[course, k]
+	}
+}
+
+//This class stores information about sessions (e.g. 2018,2019 etc) or grades (grade 5, grade 6)
+class Class {
+	courses[]
+	noOfSections
+	Class(courses[], noOfSections) {
+		this->courses[] = courses[]
+		this->noOfSections = noOfSections
+	}
+}
+
+//This class is the object that would be stored in our timetable and will contain every information that’s needed to construct it
+class TimeSlot {
+	Course course
+	Teacher teacher
+	room
+	FreeRooms
+	TimeSlot(course, teacher, room) {
+		this->course = course
+		this->teacher = teacher
+		this->room = room
+	}
+	TimeSlot(course, teacher, room, FreeRooms) {
+		this->course = course
+		this->teacher = teacher
+		this->room = room
+		this->FreeRooms = FreeRooms
+	}
+}
+
