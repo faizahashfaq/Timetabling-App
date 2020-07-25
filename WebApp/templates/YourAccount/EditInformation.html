@@ -1,0 +1,19 @@
+{% extends 'baseYC.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-6">
+	<a href="http://127.0.0.1:8000/YourAccount/EditInformation/AddCourse/" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Add Course</a> <br>
+	<a href="http://127.0.0.1:8000/YourAccount/EditInformation/AddTeacher/" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Add Teacher</a><br>
+	<a href="http://127.0.0.1:8000/YourAccount/EditInformation/AddRooms/" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Add Room</a> <br>
+</div>
+
+<div class="col-sm-3">
+	<a href="#" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Update/Delete Course</a> <br>
+	<a href="#" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Update/Delete Teacher</a> <br>
+	<a href="#" class="btn btn-primary" role="button" style="margin-bottom: 10px">+ Update/Delete Room</a>
+</div>
+</div>
+{% endblock %}
+

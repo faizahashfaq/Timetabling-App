@@ -1,0 +1,24 @@
+.form-control {
+    display: block !important;
+    margin-top: 30px !important;
+    padding: 20px !important;
+}
+.sidenav {
+    background-color: aliceblue !important;
+}
+
+.button{
+    margin:20px !important;
+}
+
+#footer{
+    background-color: #7395AE !important;
+    position: relative;
+   left: 0;
+   bottom: 0;
+overflow-x: hidden;
+   width: 100%;
+   text-align: center;
+}
+
+

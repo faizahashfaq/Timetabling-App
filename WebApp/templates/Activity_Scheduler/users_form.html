@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Register with us!</h1>
+          <hr class="mt-0 mb-4">
+		  <form method="post">
+		    {% csrf_token %}
+		    {{ form|crispy }}
+		   <div class = "col text-center">
+		   <button type="submit" class="btn btn-success" style="margin-bottom: 30px; margin-top: 20px;">Save person</button>
+			</div>  
+		  </form>
+		</div>
+	</div>
+</div>
+{% endblock %}
