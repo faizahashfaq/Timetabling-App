@@ -1,0 +1,26 @@
+{% extends 'baseYC.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+     <div class="container" style="margin-left: 7%">
+
+          <h3 class="mt-2">Update Course!</h3>
+
+		  <form method="post">
+		    {% csrf_token %}
+		    {{ form|crispy }}
+              <table>
+            {% for field in UpdateCourse %}
+            <tr>
+                <th>{{field.label}}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+		   <div class = "col text-center">
+		   <button type="submit" class="btn btn-success" style="margin-bottom: 30px; margin-top: 20px;">Update Course</button>
+			</div>
+		  </form>
+		</div>
+
+{% endblock %}

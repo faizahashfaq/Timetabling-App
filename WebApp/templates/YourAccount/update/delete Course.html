@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'baseYC.html' %}
+{% load crispy_forms_filters %}
 
-</body>
-</html>
+{% block content %}
+     <div class="container" style="margin-left: 7%">
+
+          <h3 class="mt-2">Delete Course!</h3>
+
+		  <form method="post">
+		    {% csrf_token %}
+		    {{ form|crispy }}
+		   <div class = "col text-center">
+		   <button type="submit" class="btn btn-success" style="margin-bottom: 30px; margin-top: 20px;">Delete Course</button>
+			</div>
+		  </form>
+		</div>
+
+{% endblock %}

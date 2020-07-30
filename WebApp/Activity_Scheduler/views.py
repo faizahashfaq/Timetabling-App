@@ -10,21 +10,19 @@ from Activity_Scheduler.forms import *
 from templates import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import time
 
 
 def homepage(request):
-    html = '''<h1>Activity Scheduler</h1>Hello'''
-    return HttpResponse(html)
+    return render(request, 'homepage.html')
 
 
 def Register(request):
-    html = '''<h1>Register with us</h1>Hello'''
-    return HttpResponse(html)
+    return render(request, 'inProgress.html')
 
 
 def Contact(request):
-    html = '''<h1>Contact us</h1>Hello'''
-    return HttpResponse(html)
+    return render(request, 'Contact.html')
 
 
 def AboutUs(request):
@@ -49,7 +47,7 @@ def EditInfo(request):
     return render(request, 'YourAccount/EditInformation.html')
 
 
-#@login_required
+# @login_required
 def AddTeacher(request):
     form = TeacherCreate()
     if request.method == 'POST':
@@ -64,18 +62,18 @@ def AddTeacher(request):
     return render(request, 'YourAccount/EditInformationAddAcc.html', {'form': form})
 
 
-#def AddClass(request):
- #   if request.method == 'POST':
-  #      form = ClassCreate()
-   #     if request.method == 'POST':
-    #        form = ClassCreate(request.POST)
-     #       if form.is_valid():
-      #          form.save()
-       #         name = form.cleaned_data.get('name')
-        #        messages.success(request, f'New class has been added!')
-         ##  else:
-           #     return HttpResponse("""your form is wrong, reload on <a href = "EditInfo">reload</a>""")
- #   return render(request, 'YourAccount/EditInformationAddAcc.html', {'form': form})
+def AddClass(request):
+    form = ClassCreate()
+    if request.method == 'POST':
+        form = ClassCreate(request.POST)
+        if form.is_valid():
+            form.save()
+            name = form.cleaned_data.get('name')
+            messages.success(request, f'New class has been added!')
+            return redirect('/YourAccount/EditInformation')
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "EditInfo">reload</a>""")
+    return render(request, 'Activity_Scheduler/YourAccount.html', {'form': form})
 
 
 def AddCourse(request):
@@ -86,7 +84,7 @@ def AddCourse(request):
             form.save()
             name = form.cleaned_data.get('name')
             messages.success(request, f'New course has been added!')
-            return redirect('')
+            return redirect('/YourAccount/EditInformation')
         else:
             return HttpResponse("""your form is wrong, reload on <a href = "EditInfo">reload</a>""")
     return render(request, 'YourAccount/EditInformationAddCourse.html', {'form': form})
@@ -99,8 +97,88 @@ def AddRooms(request):
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
-            messages.success(request, f'Rooms have been updated!')
-            return redirect('')
+            messages.success(request, f'Rooms have been added!')
+            return redirect('/YourAccount/EditInformation')
         else:
             return HttpResponse("""your form is wrong, reload on <a href = "EditInfo">reload</a>""")
     return render(request, 'YourAccount/EditInformationAddRooms.html', {'form': form})
+
+
+def UpdateCourse(request, course_id):
+    course_id = int(course_id)
+    try:
+        course_sel = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        return redirect('/YourAccount/EditInformation')
+    course_form = CourseCreate(request.POST or None, instance=course_sel)
+    if course_form.is_valid():
+        course_form.save()
+        messages.success(request, f'Course has been updated!')
+        return redirect('/YourAccount/EditInformation')
+    return render(request, 'YourAccount/update/updateCourse.html', {'form': course_form})
+
+
+def UpdateTeacher(request, teacher_id):
+    teacher_id = int(teacher_id)
+    try:
+        teacher_sel = Teacher.objects.get(id=teacher_id)
+    except Course.DoesNotExist:
+        return redirect('/YourAccount/EditInformation')
+    teacher_form = TeacherCreate(request.POST or None, instance=teacher_sel)
+    if teacher_form.is_valid():
+        teacher_form.save()
+        messages.success(request, f'Teacher has been updated!')
+        return redirect('/YourAccount/EditInformation')
+    return render(request, 'YourAccount/update/updateteacher.html', {'form': teacher_form})
+
+
+def UpdateRoom(request, room_id):
+    room_id = int(room_id)
+    try:
+        room_sel = Rooms.objects.get(id=room_id)
+    except Rooms.DoesNotExist:
+        return redirect('/YourAccount/EditInformation')
+    room_form = RoomCreate(request.POST or None, instance=room_sel)
+    if room_form.is_valid():
+        room_form.save()
+        messages.success(request, f'Rooms have been updated!')
+        return redirect('/YourAccount/EditInformation')
+    return render(request, 'YourAccount/update/updateroom.html', {'form': room_form})
+
+
+def ViewCourses(request):
+    view = Course.objects.all()
+    return render(request, 'YourAccount/viewCourse.html', dict(view=view))
+
+
+def ViewTeachers(request):
+    view = Teacher.objects.all()
+    return render(request, 'YourAccount/viewTeacher.html', dict(view=view))
+
+
+def ViewRooms(request):
+    view = Rooms.objects.all()
+    return render(request, 'YourAccount/viewRoom.html', dict(view=view))
+
+
+def DeleteCourse(request, course_id):
+    course_id = int(course_id)
+    try:
+        course_sel = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        return redirect('/YourAccount/EditInformation')
+    course_sel.delete()
+    messages.success(request, f'Course has been deleted!')
+    return redirect('/YourAccount/EditInformation')
+
+
+def DeleteTeacher(request, teacher_id):
+    teacher_id = int(teacher_id)
+    try:
+        teacher_sel = Teacher.objects.get(id=teacher_id)
+    except Course.DoesNotExist:
+        return redirect('/YourAccount/EditInformation')
+    teacher_sel.delete()
+    messages.success(request, f'Teacher has been deleted!')
+    return redirect('/YourAccount/EditInformation')
+

@@ -17,21 +17,28 @@ another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from Activity_Scheduler.views import homepage
 from Activity_Scheduler.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage, name='home'),
-    #path('Register/', UsersCreateView.as_view(), name='user-register'),
+    path('Register/', Register),
     path('Contact/', Contact),
     path('Login/', auth_views.LoginView.as_view(template_name='Activity_Scheduler/login.html'),
          name='login'),
-    path('YourAccount/', YourPage),
+    path('YourAccount/', AddClass),
     path('YourAccount/EditInformation', EditInfo),
-    path('YourAccount/EditInformation/AddTeacher/', AddTeacher),
+    path('YourAccount/EditInformation/AddTeatcher/', AddTeacher),
     path('YourAccount/EditInformation/AddRooms/', AddRooms),
     path('YourAccount/EditInformation/AddCourse/', AddCourse),
+    path('YourAccount/EditInformation/ViewCourses/UpdateCourse/<int:course_id>', UpdateCourse),
+    path('YourAccount/EditInformation/ViewTeacher/UpdateTeacher/<int:teacher_id>', UpdateTeacher),
+    path('YourAccount/EditInformation/ViewRoom/UpdateRoom/<int:room_id>', UpdateRoom),
+    path('YourAccount/EditInformation/ViewCourses/DeleteCourse/<int:course_id>', DeleteCourse),
+    path('YourAccount/EditInformation/ViewTeacher/DeleteTeacher/<int:teacher_id>', DeleteTeacher),
+    path('YourAccount/EditInformation/ViewCourses/', ViewCourses),
+    path('YourAccount/EditInformation/ViewTeacher/', ViewTeachers),
+    path('YourAccount/EditInformation/ViewRoom/', ViewRooms),
     path('TestTool/', TestTool),
     path('TestTool/YourTimetable', TestGeneration)
 ]

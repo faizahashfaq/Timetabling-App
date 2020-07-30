@@ -1,16 +1,16 @@
 {% extends 'baseYC.html' %}
 {% load crispy_forms_filters %}
 
-
 {% block content %}
+     <div class="container" style="margin-left: 7%">
 
-    <h3 class="mt-2">Add class!</h3>
+          <h3 class="mt-2">Update Room!</h3>
 
 		  <form method="post">
 		    {% csrf_token %}
 		    {{ form|crispy }}
 		   <div class = "col text-center">
-		   <button type="submit" class="btn btn-success" style="margin-bottom: 30px; margin-top: 20px;">Save class</button>
+		   <button type="submit" class="btn btn-success" style="margin-bottom: 30px; margin-top: 20px;">Save Teacher</button>
 			</div>
 		  </form>
 		</div>

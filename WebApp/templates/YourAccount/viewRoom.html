@@ -1,0 +1,25 @@
+{% extends 'baseYC.html' %}
+
+{% block content %}
+<div class="container" style="margin-left: 7%">
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Room number</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for Rooms in view %}
+    <tr>
+        <td>{{ Rooms.rooms }}</td>
+        <td>
+            <a href="UpdateRoom/{{ Rooms.id }}"><span class="glyphicon glyphicon-pencil" > Edit</span></a>
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+{% endblock %}

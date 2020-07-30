@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jul  6 21:46:29 2020
-
 @author: Faiza
 """
 
@@ -21,7 +20,7 @@ class Course:
 class Counter:
     def __init__(self,noOfSections, noOfCourses):
         self.noOfSections = noOfSections
-        self.counter = [[0 for j in range(noOfSections)] for i in range(20)]
+        self.counter = [[0 for j in range(noOfSections)] for i in range(noOfCourses)]
     def add(self, course, k):
         self.counter[course.ID-1][k] = self.counter[course.ID-1][k] + 1
     def get(self, course, k):
@@ -88,20 +87,20 @@ def GenerateClassTimetable(Class, FreeRooms, BusyRooms):
         dwk = Class.dwk
         for j in range(dwk):
             classesUsed = 0
-            a = 0
             nos = Class.noOfSections
             for k in range (nos):
                 total = 0;
                 while timetable[i][j][k]==tm:
                     if fit(curCourse, FreeRooms, i, j, k, timetable, counter, nos)>3:
+                        if counter.get(curCourse, k) == curCourse.crtHours:
+                            break
                         leng = len(FreeRooms)
                         r = FreeRooms[leng-1]
                         timetable[i][j][k]= TimeSlot(curCourse, curCourse.teacher, r)
+                        counter.add(curCourse, k)
                         BusyRooms.append(r)
-                        a = a+1
                         FreeRooms = FreeRooms[:-1]
                         classesUsed=classesUsed+1
-                        counter.add(curCourse, k)
                     else:
                         if x<totalNoOfCourses:
                             x=0
@@ -136,7 +135,7 @@ def GenerateClassTimetable(Class, FreeRooms, BusyRooms):
     if errorNum == 0:
         return timetable
     else:
-        repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, nSec, errorCourse, errorNum-1, 0)
+        #repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, nSec, errorCourse, errorNum-1, 0)
         return timetable
     
    
@@ -156,13 +155,11 @@ def TeacherIsAvailable(timetable, i, j, teacher, sections):
 def fit(course, F,i, j, k, timetable, counter, sections):
 	var=0
 	if len(F)!=0:
-		var = var+1
+		var = var+2
 	if TeacherIsAvailable(timetable, i, j, course.teacher, sections):
 		var = var + 1
-	if course.crtHours <= counter.get(course, k):
-		var = var - 2
-	if timetable[i][j-2][k] != course:
-		var = var+1
+	if course.crtHours > counter.get(course, k):
+		var = var + 1
 	return var
 
     
@@ -172,7 +169,7 @@ def checkForErrors(counter, course, totalCourses, noOfSections):
     errorSec = []
     for i in range(totalCourses):
         for j in range(noOfSections):
-            if counter.counter[i][j] != course[i].crtHours:
+            if counter.get(course[i], j) != course[i].crtHours:
                 errorCourse.append(course[i])			 #store course index and section index to spot the problem
                 errorSec.append(j)
 				
@@ -189,7 +186,9 @@ def repairTimetable (timetable, FreeRooms, FreeSlots, counter, errorSec, noOfSec
     er = errorCourse[errorNo]
     while er!=None:
         i, j = FreeSlots[x].getTime()
-        if fit(curCourse, FreeRooms, i, j, curSection, timetable, counter, noOfSections) > 3 :
+        if fit(curCourse, FreeRooms, i, j, curSection, timetable, counter, noOfSections) >= 3 :
+            if counter.get(curCourse, curSection)>curCourse.crtHours:
+                break
             x = x+1
             r = FreeSlots[x].FreeRooms[0]
             timetable[i][j][curSection](curCourse, curCourse.teacher, r)
@@ -207,17 +206,6 @@ def repairTimetable (timetable, FreeRooms, FreeSlots, counter, errorSec, noOfSec
     repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, errorCourse, errorNo-1, x)
 
 
-# =============================================================================
-# 
-# def printTime(timetable, i, j, k):
-#     if timetable[i][j][k].course == None:
-#         i = i
-#         #print("Free Slot ", end = '')
-#     else:
-#         print(timetable[i][j][k].course.courseName)
-#         print(timetable[i][j][k].teacher)
-#         print(timetable[i][j][k].room)
-# =============================================================================
     
     
 def printCourses(timetable, dwk, i, k):
@@ -248,7 +236,26 @@ AOA = Course("AOA", 3, "Samyan", 2)
 OS = Course("OS", 3, "Amna", 3)
 MVC = Course("MVC", 2, "Rubina", 4)
 TAF = Course("TAF", 3, "Tauqir", 5)
-courses = [DBMS, AOA, OS, MVC, TAF]
+DSA = Course("DSA", 3, "hina", 6)
+
+courses = [DBMS, AOA, OS, MVC, TAF, DSA]
+
+for i in range(1, len(courses)): 
+  
+        key = courses[i] 
+        
+        # Move elements of arr[0..i-1], that are 
+        # greater than key, to one position ahead 
+        # of their current position 
+        j = i-1
+        while j >=0 and key.crtHours > courses[j].crtHours : 
+                courses[j+1] = courses[j] 
+                j -= 1
+        courses[j+1] = key 
+
+for i in range(len(courses)):
+    courses[i].ID = i+1
+
 noOfSections = 3
 dwk = 7
 totalRooms = 3
@@ -274,17 +281,3 @@ for i in range(5):
     print('\nSection C: ', printCourses(timetable, dwk, i, 2))
     print('\t\t', printTeachers(timetable, dwk, i, 2))
     print('\t\t', printRooms(timetable, dwk, i, 2))
-# =============================================================================
-# for i in range(5):
-#     for j in range(dwk):
-#         for k in range(noOfSections):
-#             if (timetable[i][j][k].course !=None):
-#                 print("On day ", i+1," for period ", j+1, " and section ", k+1x)
-#                 print(timetable[i][j][k].course.courseName)
-#                 print(timetable[i][j][k].teacher)
-#                 print(timetable[i][j][k].room)
-#             else:
-#                 print("Free Period")
-#                 
-# =============================================================================
-
