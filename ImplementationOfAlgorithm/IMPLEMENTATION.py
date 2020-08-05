@@ -135,7 +135,7 @@ def GenerateClassTimetable(Class, FreeRooms, BusyRooms):
     if errorNum == 0:
         return timetable
     else:
-        #repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, nSec, errorCourse, errorNum-1, 0)
+        repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, nSec, errorCourse, errorNum-1, 0)
         return timetable
     
    
@@ -203,9 +203,7 @@ def repairTimetable (timetable, FreeRooms, FreeSlots, counter, errorSec, noOfSec
                 i, j = FreeSlots[x].getTime()
                 x = x+1
 
-    repairTimetable(timetable, FreeRooms, FreeSlots, counter, errorSec, errorCourse, errorNo-1, x)
-
-
+    return timetable
     
     
 def printCourses(timetable, dwk, i, k):
@@ -243,10 +241,7 @@ courses = [DBMS, AOA, OS, MVC, TAF, DSA]
 for i in range(1, len(courses)): 
   
         key = courses[i] 
-        
-        # Move elements of arr[0..i-1], that are 
-        # greater than key, to one position ahead 
-        # of their current position 
+
         j = i-1
         while j >=0 and key.crtHours > courses[j].crtHours : 
                 courses[j+1] = courses[j] 

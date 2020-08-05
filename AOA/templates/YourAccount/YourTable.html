@@ -1,0 +1,63 @@
+{% extends 'baseYC.html' %}
+{% load cust_template %}
+{% block content %}
+
+
+
+
+    <div class="container" style="margin-left: 7%">
+{% for k in noOfSec|times %}
+    <h3>Section {{ forloop.counter }}</h3>
+    <table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+
+    <tr>
+        <th id="0"> </th>
+        <th id = "1" colspan="{{ dwk  }}">Monday - Friday</th>
+
+    </tr>
+    </thead>
+<tbody>
+
+            {% for j in dwk|times %}
+                <tr>
+                    <th id="Period" headers="0" scope="rowgroup" rowspan="3">Period {{ forloop.counter }}</th>
+
+                    <td headers="1 Period">{% keyValueName timetable 0 j k %}</td>
+                    <td headers="2 Period">{% keyValueName timetable 1 j k %}</td>
+                    <td headers="3 Period">{% keyValueName timetable 2 j k %}</td>
+                    <td headers="4 Period">{% keyValueName timetable 3 j k %}</td>
+                    <td headers="5 Period">{% keyValueName timetable 4 j k %}</td>
+                </tr>
+
+                <tr>
+                    <td headers="1 Period">{% keyValueTe timetable 0 j k %}</td>
+                    <td headers="2 Period">{% keyValueTe timetable 1 j k %}</td>
+                    <td headers="3 Period">{% keyValueTe timetable 2 j k %}</td>
+                    <td headers="4 Period">{% keyValueTe timetable 3 j k %}</td>
+                    <td headers="5 Period">{% keyValueTe timetable 4 j k %}</td>
+                </tr>
+
+                <tr>
+                    <td headers="1 Period">{% keyValueR timetable 0 j k %}</td>
+                    <td headers="2 Period">{% keyValueR timetable 1 j k %}</td>
+                    <td headers="3 Period">{% keyValueR timetable 2 j k %}</td>
+                    <td headers="4 Period">{% keyValueR timetable 3 j k %}</td>
+                    <td headers="5 Period">{% keyValueR timetable 4 j k %}</td>
+                </tr>
+
+
+
+
+            {% endfor %}
+
+
+    </tbody>
+</table>
+{% endfor %}
+</div>
+
+
+
+
+{% endblock %}
