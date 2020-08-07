@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
+import whitenoise
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +26,7 @@ SECRET_KEY = 'tn=w1*n#_a8z$3+&mm%#5wry)5%d3&o5q#*4i9%o)b9n@b2i(f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['activityscheduler.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -37,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Activity_Scheduler.apps.ActivitySchedulerConfig',
     'crispy_forms',
-    'herokuapp',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -82,7 +84,7 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
         'OPTIONS': {
-            #'init_command': "SET sql_mode='STRICT_TRANS_TABLES"
+            # 'init_command': "SET sql_mode='STRICT_TRANS_TABLES"
         }
     }
 }
@@ -121,5 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
