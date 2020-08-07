@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Activity_Scheduler.apps.ActivitySchedulerConfig',
     'crispy_forms',
+    'herokuapp',
 ]
 
 MIDDLEWARE = [
