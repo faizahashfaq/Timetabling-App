@@ -16,7 +16,7 @@ d) Any discrepancies in the features implemented
  
 e) Suggestion on the improvement of UI/backend
  ~ Create a Back button. When i add any course or teacher, after adding it automaticaaly go back to the back page. You can use Back button for this.
- ~ It is distinguish between Period 1 and Period 2. You can make it better by making only 1 row for Period 1 or you can also bold Period 1 box as well as other.
+ ~ It is dificult to distinguish between Period 1 and Period 2. You can make it better by making only 1 row for Period 1 or you can also bold Period 1 box as well as other.
    
 f) Testing methods can be automated or it can be performed manually.
  ~ It is performed manually
