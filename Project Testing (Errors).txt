@@ -1,0 +1,27 @@
+Testing
+Students will perform testing of assigned projects. The following issues should be detected during testing:
+
+a) Any type of crashes in application
+ ~ No Crash in Application.
+
+b) Issues found in the responsiveness of UI
+ ~ Interfaces are well designed.
+
+c) Incorrect results of algorithms
+ ~ I notice that if two teachers teach same subject for different section, then both teacher appears in same section for same subjects.
+ ~ I notice about labs. The labs contact hours are 3 but its credit hour 1. Labs also scheduling on different days for this. It should be on same day like our university labs time scheduled.
+
+d) Any discrepancies in the features implemented
+ ~ Don't feel any repetition in the project.
+ 
+e) Suggestion on the improvement of UI/backend
+ ~ Create a Back button. When i add any course or teacher, after adding it automaticaaly go back to the back page. You can use Back button for this.
+ ~ It is distinguish between Period 1 and Period 2. You can make it better by making only 1 row for Period 1 or you can also bold Period 1 box as well as other.
+   
+f) Testing methods can be automated or it can be performed manually.
+ ~ It is performed manually
+
+g) Try multiple inputs on algorithms to make it crash and report the scenarios which cause problem
+ ~ These is no crash in the program. It is running correctly.
+
+h) All the issues should be reported on Github 
