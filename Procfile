@@ -1,1 +1,1 @@
-web: gunicorn AOA.wsgi --log-file -
+web: gunicorn CS311S20PID17.wsgi --log-file -
