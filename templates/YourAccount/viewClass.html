@@ -1,0 +1,30 @@
+{% extends 'baseYC.html' %}
+
+{% block content %}
+<div class="container" style="margin-left: 7%">
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Name</th>
+        <th>Number of sections</th>
+        <th>Daily Working Hours</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for Class in view %}
+    <tr>
+        <td>{{ Class.name }}</td>
+        <td>{{ Class.sections }}</td>
+        <td>{{ Class.dwk }}</td>
+        <td>
+            <a href="https://heactivityscheduler.herokuapp.com/YourAccount/YourTimetable/{{ Class.id }}"><i class="glyphicon glyphicon-th"></i> View Timetable  </a>
+            <a href="DeleteClass/{{ Class.id }}">   Delete class</a>
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+{% endblock %}
