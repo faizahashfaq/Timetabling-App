@@ -2,6 +2,8 @@
 
 ## Project: 	Activity Scheduling
 
+### Deployed at: https://heactivityscheduler.herokuapp.com/
+
 **Programming Languages, Tools and software (IDEs) used for Project implementation:**
 <br>
 Operating System: Windows <br>
